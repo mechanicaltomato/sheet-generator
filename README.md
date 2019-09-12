@@ -3,7 +3,8 @@
 Small project dedicated to learn JS by building up a DnD 5e Sheet Generator.
 
 What it does:
-*Saves these Character informations
+*Saves these Character informations:
+
 -Name
 -Alignment
 -Level/Proficiency Bonus
