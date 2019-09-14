@@ -18,10 +18,10 @@ let character = {
 	speed : 30,
 }
 let standardArray = [15, 14, 13, 12, 10, 8];
-let atributes = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
+let atributeName = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
 let usedArray = [];
 let distributionMethod=3;
-let atributoAuxiliar;
+let auxAtribute;
 
 
 
@@ -33,11 +33,11 @@ while(distributionMethod>2 || distributionMethod<0){
 		break
 	}else if(distributionMethod==1) {
 		for(var i=0; i<6; i++){
-			atributoAuxiliar = Number(prompt("Insira atributo número " + (i+1) + " para distribuir."))
-			if(atributoAuxiliar<3 || atributoAuxiliar>18){
+			auxAtribute = Number(prompt("Insira atributo número " + (i+1) + " para distribuir."))
+			if(auxAtribute<3 || auxAtribute>18){
 				console.log("Valor inserido fora do intervalo permitido, tente novamente.")
 				i--;
-			}else usedArray.push(atributoAuxiliar);
+			}else usedArray.push(auxAtribute);
 		}
 		break;
 	}else if(distributionMethod==2){
@@ -70,9 +70,9 @@ function removeIndexFromArray(array, index) {
 window.onload = function() {
   let isAtributeValid=0;
   for(var i=0; i<6; i++){
-    isAtributeValid = Number(prompt("Choose your " + atributes[i] + " value between " + usedArray))
+    isAtributeValid = Number(prompt("Choose your " + atributeName[i] + " value between " + usedArray))
     if(usedArray.includes(isAtributeValid)){
-      sheet[atributes[i]] = isAtributeValid;
+      sheet[atributeName[i]] = isAtributeValid;
       usedArray = removeIndexFromArray(usedArray, usedArray.indexOf(isAtributeValid));
 
     }else i--;
@@ -228,6 +228,4 @@ let chooseSkills = function(){
 			console.table(skills)
 		}
 	}
-
-
 }
