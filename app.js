@@ -61,8 +61,6 @@ while(distributionMethod>2 || distributionMethod<0){
 	}else console.log("Seleção inválida, tente novamente.")
 }
 
-
-
 function removeIndexFromArray(array, index) {
   return array.slice(0, index).concat(array.slice(index + 1))
 }
