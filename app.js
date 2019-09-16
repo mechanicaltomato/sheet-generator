@@ -1,16 +1,15 @@
 'use strict';
 let sheet = {
-  strength : 0,
-  dexterity : 0,
-  constitution : 0,
-  intelligence : 0,
-  wisdom : 0,
-  charisma : 0,
+  strength : {value : 0, mod : 0, saveProficiency : 1},
+  dexterity : {value : 0, mod : 0, saveProficiency : 0},
+  constitution : {value : 0, mod : 0, saveProficiency : 1},
+  intelligence : {value : 0, mod : 0, saveProficiency : 0},
+  wisdom : {value : 0, mod : 0, saveProficiency : 0},
+  charisma : {value : 0, mod : 0, saveProficiency : 0},
 }
 let character = {
 	name : "Who Cares Honestly",
-	socialAlignment: "Lawful", 
-	moralAlignment: "Good",
+	alignment : {social : "Lawful", moral : "Evil"},
 	exp : 0,
 	level : 1,
 	profBonus : 2,
@@ -76,15 +75,16 @@ window.onload = function() {
   		for(var i=0; i<6; i++){
     		isAtributeValid = Number(prompt("Choose your " + atributeName[i] + " value between " + usedArray))
     		if(usedArray.includes(isAtributeValid)){
-      			sheet[atributeName[i]] = isAtributeValid;
+      			sheet[atributeName[i].value] = isAtributeValid;
       			usedArray = removeIndexFromArray(usedArray, usedArray.indexOf(isAtributeValid));
     		}else i--;
 		}
 	}else {
 		for(var i=0; i<6; i++){
-			sheet[atributeName[i]] = usedArray[i];
+			sheet[atributeName[i]].value = usedArray[i];
 		}
   	}
+  	calcMod();
   	chooseSkills();
   	console.table(character)
   	console.table(sheet);
@@ -92,10 +92,10 @@ window.onload = function() {
  }
 
 
-let calcMod = function(atribute){
-	let mod;
-	mod = Math.floor((atribute-10)/2);
-	console.log("Your " + atribute + " modifier is: " + mod)
+let calcMod = function(){
+	for(var i=0; i<6; i++){
+		sheet[atributeName[i]].mod = Math.floor((sheet[atributeName[i]].value -10)/2);
+	}
 }//calculates modifiers
 
 let levelCheck = function(character){
