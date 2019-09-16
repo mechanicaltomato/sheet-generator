@@ -1,3 +1,4 @@
+'use strict';
 let sheet = {
   strength : 0,
   dexterity : 0,
@@ -68,31 +69,34 @@ function removeIndexFromArray(array, index) {
 }
 
 window.onload = function() {
-  let isAtributeValid=0;
-  for(var i=0; i<6; i++){
-    isAtributeValid = Number(prompt("Choose your " + atributeName[i] + " value between " + usedArray))
-    if(usedArray.includes(isAtributeValid)){
-      sheet[atributeName[i]] = isAtributeValid;
-      usedArray = removeIndexFromArray(usedArray, usedArray.indexOf(isAtributeValid));
+  	let isAtributeValid=0;
+  	let statAssignChoice = Number(prompt("How do you want to assign your atributes?\n 0-Assign Mannualy, 1-Assign them for me!"))
 
-    }else i--;
-
-  }
-  chooseSkills();
-  console.table(character)
-  console.table(sheet);
-  console.table(skills);
-}
+  	if(statAssignChoice==0){
+  		for(var i=0; i<6; i++){
+    		isAtributeValid = Number(prompt("Choose your " + atributeName[i] + " value between " + usedArray))
+    		if(usedArray.includes(isAtributeValid)){
+      			sheet[atributeName[i]] = isAtributeValid;
+      			usedArray = removeIndexFromArray(usedArray, usedArray.indexOf(isAtributeValid));
+    		}else i--;
+		}
+	}else {
+		for(var i=0; i<6; i++){
+			sheet[atributeName[i]] = usedArray[i];
+		}
+  	}
+  	chooseSkills();
+  	console.table(character)
+  	console.table(sheet);
+  	console.table(skills);
+ }
 
 
 let calcMod = function(atribute){
-	let mod = Math.floor((attribute-10)/2);
-	return mod;
-}
-
-let atributeCheck = function(atribute){
-	result = Math.floor(Math.random()*20)+calcMod(atribute);
-}
+	let mod;
+	mod = Math.floor((atribute-10)/2);
+	console.log("Your " + atribute + " modifier is: " + mod)
+}//calculates modifiers
 
 let levelCheck = function(character){
 	if(character.exp<=300){
@@ -176,7 +180,7 @@ let levelCheck = function(character){
 		character.profBonus = 6;
 
 	}else console.log("Get a life")
-}
+}//calculates lever and proficiency bonus based on exp
 
 
 
@@ -211,13 +215,13 @@ let skills = {
 	performace: 0,
 	persuasion: 0,
 
-}
+}//object declaration of skills
 
 let skillList = ["athletics", "acrobatics", "sleightOfHand", "stealth", "arcana", "history", "investigation", "nature", "religion",
 "animalHandling", "insight", "medicine", "perception", "survival", "deception", "intimidation", "performace", "persuasion"];
 
 let chooseSkills = function(){
-	let choices = 3;
+	let choices = 0;
 	let isChoiceValid
 	while(choices!=0){
 		isChoiceValid = prompt("Em qual habilidade quer adquirir proeficiencia?");
@@ -225,7 +229,7 @@ let chooseSkills = function(){
 			skills[isChoiceValid] = 1;
 			removeIndexFromArray(skillList, skillList.indexOf(isChoiceValid))
 			choices--;
-			console.table(skills)
+			
 		}
 	}
 }
